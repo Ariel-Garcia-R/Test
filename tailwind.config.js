@@ -1,5 +1,12 @@
 export default {
-    theme: {},
+  theme: {
+    extend: {
+      screens: {
+        'xl': '1230px',
+        // => @media (min-width: 992px) { ... }
+      },
+    },
+  },
     plugins: [],
     content: [
       `/components/**/*.{vue,js,ts}`,

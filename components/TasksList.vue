@@ -5,7 +5,13 @@ const { tasks } = useTaskStore()
 
 <template>
     <ul>
-        <TaskItem v-for="task in tasks" :key="task.id" :taskId="task.id" :taskBody="task.body" :isCompleted="task.isCompleted"></TaskItem>    
+        <TaskItem 
+        v-for="task in tasks" 
+        :key="task.id" 
+        :taskID="task.id" 
+        :taskBody="task.body" 
+        :taskBodyFormated="task.bodyFormated"
+        :isCompleted="task.isCompleted"></TaskItem>    
     </ul>
 </template>
 

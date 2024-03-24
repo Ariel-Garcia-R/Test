@@ -5,7 +5,12 @@ const props = defineProps({
         required: true,
         default: 'This task is empty'
     },
-    taskId:{
+    taskBodyFormated:{
+        type: String,
+        required: true,
+        default: 'This task is empty'
+    },
+    taskID:{
         type: Number,
         required: true
     },
@@ -18,15 +23,19 @@ const checked = ref(false)
 </script>
 
 <template>
-    <li class="flex my-2"
-        :class="{'line-through': checked}"> 
+<div class="flex items-center">
         <input 
         v-model="checked"
         type="checkbox" 
         name="list-item" 
         :id="taskID"
-        class="h-6 w-6 ml-0 mr-4 border border-[#8A94A6]"
+        class="ml-0 mr-4 border border-[#8A94A6] shrink-0"
+        style="height: 24px !important; width: 24px !important;"
         >
-        {{ taskBody }}</li>
+        <li class="flex items-center my-2"
+            :class="{'line-through': checked}"
+            v-html="taskBodyFormated"> 
+        </li>
+</div>
 </template>
 

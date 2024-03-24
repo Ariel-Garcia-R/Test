@@ -3,19 +3,16 @@ const { locale } = useI18n()
 </script>
 
 <template>
-    <nav class="flex justify-between mx-4">
+    <nav class="flex justify-between items-center mx-4">
+
         <h1
             class="text-center text-4xl font-black my-3 bg-gradient-to-r from-[#0D55CF] via-blue-500 to-blue-300 text-transparent bg-clip-text">
-        {{ $t('appTittle') }}
+            {{ $t('appTittle') }}
         </h1>
-        <div class="flex w-10">
-            <form>
-                <select v-model="locale">
-                    <option value="en">Eng</option>
-                    <option value="sp">Esp</option>
-                </select>
-            </form>
-        </div>
+        <select class="h-9 px-2 rounded bg-blue-500 text-white" v-model="locale">
+            <option value="en">Eng</option>
+            <option value="sp">Esp</option>
+        </select>
 
     </nav>
 </template>

@@ -12,13 +12,14 @@ export default defineI18nConfig(() => ({
         publicButton: 'Public',
         highlightButton: 'Highlight',
         estimationButton: 'Estimation',
-        confirmButton: 'Ok',
+        confirmButtonEmpty: 'Ok',
+        confirmButton: 'Add',
         cancelButton: 'Cancel'
 
 
       },
       sp: {
-        appTittle: 'Aplicación de Tareas',
+        appTittle: 'App de Tareas',
         welcome: 'Bienvenido',
         taskPlaceholder: 'Escribe para agregar una nueva tarea',
         openButton: 'Abrir',
@@ -26,7 +27,8 @@ export default defineI18nConfig(() => ({
         publicButton: 'Público',
         highlightButton: 'Resaltar',
         estimationButton: 'Estimación',
-        confirmButton: 'Aceptar',
+        confirmButtonEmpty: 'OK',
+        confirmButton: 'Agregar',
         cancelButton: 'Cancelar'
 
       }
