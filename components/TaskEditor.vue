@@ -2,73 +2,82 @@
 import Mark from 'mark.js';
 import { useTaskStore } from "@/store/store";
 
-const props = defineProps({
-    editableTask: {
-        type: Object,
-        required: false,
-        default: {}
-    }
-})
-
-watch(props.editableTask, () => {
-    console.log("llega la tarea a  la prop");
-    if (isEmptyTask && isTaskBoxOpen) {
-        newTask.id = props.editableTask.id
-        newTask.body = props.editableTask.value.body
-        newTask.bodyFormated = props.editableTask.bodyFormated
-        newTask.isCompleted = props.editableTask.isCompleted
-        highlighter.value.innerText = newTask.body
-    }
-})
-
 const { taskListNumber, addTaskToStore } = useTaskStore()
 const isTaskBoxOpen = ref(false)
 const isEmptyTask = ref(true);
 const highlighter = ref(null) // referencia al elemento del DOM
-const newTask = reactive({
+const taskItem = reactive({
     id: null,
     body: '',
-    bodyFormated: computed(() => useFormatTask(newTask.body)),
+    bodyFormated: computed(() => useFormatTask(taskItem.body)),
     isCompleted: false
 })
 
 const instance = ref(null); // Instancia de Mark.js
 
-const updateText = () => {
-    newTask.body = highlighter.value.innerText
-    // newTask.bodyFormated = highlighter.value.innerText.replace(/(#\w+)/g, '<span style="display: inline-flex; height: 24px; align-items:center; background-color: #DBC7FF; color: #702EE6; font-weight: 500; border-radius: 12px; padding: 1px 8px; font-size: 0.875rem">$1</span>')
 
-
-    nextTick(() => {
-        if (instance.value) {
+watch(taskItem, () => {
+            if (instance.value) {
             instance.value.unmark(); // Limpiar resaltados anteriores
         }
         instance.value = new Mark(highlighter.value);
+        // instance.value.markRegExp(/(#\w+)/g, {
+        //     className: 'text-[#702EE6] bg-red-500', // Clase CSS para el resaltado
+        //     done: () => {
+        //         // Aquí puedes manejar cualquier lógica adicional después de que el texto haya sido resaltado
+        //     }
+        // });
         instance.value.markRegExp(/(#\w+)/g, {
-            className: 'text-[#702EE6] bg-transparent', // Clase CSS para el resaltado
+            className: 'text-[#702EE6] bg-red-500', // Clase CSS para el resaltado
+            each: () => {
+            }, 
             done: () => {
-                // Aquí puedes manejar cualquier lógica adicional después de que el texto haya sido resaltado
             }
-        });
+        });    
+    });
+
+const updateText = () => {
+    taskItem.body = highlighter.value.innerText
+    // taskItem.bodyFormated = highlighter.value.innerText.replace(/(#\w+)/g, '<span style="display: inline-flex; height: 24px; align-items:center; background-color: #DBC7FF; color: #702EE6; font-weight: 500; border-radius: 12px; padding: 1px 8px; font-size: 0.875rem">$1</span>')
+
+
+    nextTick(() => {
+        // if (instance.value) {
+        //     instance.value.unmark(); // Limpiar resaltados anteriores
+        // }
+        instance.value = new Mark(highlighter.value);
+        // instance.value.markRegExp(/(#\w+)/g, {
+        //     className: 'text-[#702EE6] bg-red-500', // Clase CSS para el resaltado
+        //     done: () => {
+        //         // Aquí puedes manejar cualquier lógica adicional después de que el texto haya sido resaltado
+        //     }
+        // });
+        instance.value.markRegExp(/(#\w+)/g, {
+            className: 'text-[#702EE6] bg-red-500', // Clase CSS para el resaltado
+            each: () => {
+            }, 
+            done: () => {
+            }
+        });    
     });
 };
 
 const toggleTaskBox = () => isTaskBoxOpen.value = !isTaskBoxOpen.value
 const saveTaskToStore = () => {
-    if (newTask.body === '') {
+    if (taskItem.body === '') {
         toggleTaskBox()
     } else {
-        addTaskToStore({ ...newTask, id: taskListNumber + 1, bodyFormated: `<p class="items-center">${newTask.bodyFormated}</p>` })
-        newTask.id = null
-        newTask.body = ''
+        addTaskToStore({ ...taskItem, id: taskListNumber + 1, bodyFormated: `<p class="items-center">${taskItem.bodyFormated}</p>` })
+        taskItem.id = null
+        taskItem.body = ''
         highlighter.value.innerText = ''
-        newTask.bodyFormated = ''
-        newTask.isCompleted = false
+        taskItem.bodyFormated = ''
+        taskItem.isCompleted = false
     }
 }
 
-watch(newTask, () => {
-    if (newTask.body === '') {
+watch(taskItem, () => {
+    if (taskItem.body === '') {
         isEmptyTask.value = true
     } else {
         isEmptyTask.value = false
@@ -83,14 +92,15 @@ watch(newTask, () => {
         <PlusSquareIcon class="text-[#007FFF]" />
         <span>{{ $t('taskPlaceholder') }}</span>
     </button>
-    <div v-else
-        class="flex-col w-full rounded-t border border-[#F1F3F4] dark:border-gray-800 my-5">
+    <div v-else class="flex-col w-full rounded-t border border-[#F1F3F4] dark:border-gray-800 my-5">
         <div class="h-16 w-full max-w-[1360px] flex">
             <div class="mx-3 my-2">
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
-            <div class="w-full dark:text-gray-500 pt-[5px] overflow-y-auto focus:outline-none" ref="highlighter"
-                contenteditable="true" @input="updateText()"></div>
+            <textarea v-model="taskItem.body" class="w-full dark:text-gray-500 pt-[5px] overflow-y-auto focus:outline-none" ref="highlighter"
+             ></textarea>
+            <!-- <div class="w-full dark:text-gray-500 pt-[5px] overflow-y-auto focus:outline-none" ref="highlighter"
+                contenteditable="true" @input="updateText()"></div> -->
         </div>
         <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
             <div class="flex gap-[1px] xl:gap-1">
@@ -121,8 +131,8 @@ watch(newTask, () => {
         $t('confirmButtonEmpty') :
         $t('confirmButton') }} </SharedButton>
                 <SharedButton class="xl:hidden" @click="saveTaskToStore()">
-                    <XIcon v-if="isEmptyTask && newTask.id === null" size="20" />
-                    <SaveIcon v-else-if="!isEmptyTask && newTask.id" size="20" />
+                    <XIcon v-if="isEmptyTask && taskItem.id === null" size="20" />
+                    <SaveIcon v-else-if="!isEmptyTask && taskItem.id" size="20" />
                     <PlusIcon v-else size="20" />
                 </SharedButton>
             </div>
