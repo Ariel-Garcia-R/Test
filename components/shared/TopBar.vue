@@ -4,11 +4,11 @@ const colorMode = useColorMode()
 const isLenguageMenuOpen = ref(false)
 
 const switchColorMode = () => {
-    if (colorMode.preference === "dark") {
-        colorMode.preference = "light"
+    if (colorMode.preference != "dark") {
+        colorMode.preference = "dark"
     }
     else {
-        colorMode.preference = "dark"
+        colorMode.preference = "light"
     }
 }
 </script>

@@ -7,7 +7,7 @@ const test = (taskID) => emit('taskToEdit', tasks[taskID - 1])
 </script>
 
 <template>
-    <ul>
+    <ul class="w-full">
         <TaskItem 
         @edit-list-item="(taskID) => test(taskID)"
         v-for="task in tasks" 

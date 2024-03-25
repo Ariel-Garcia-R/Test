@@ -25,8 +25,8 @@ const checked = ref(false)
 <template>
     <div class="flex items-center">
         <input v-model="checked" type="checkbox" name="list-item" :id="taskID"
-            class="ml-0 mr-4 border border-[#8A94A6] shrink-0" style="height: 24px !important; width: 24px !important;">
-        <li @click="$emit('editListItem', taskID)" class="flex items-center my-2" :class="{ 'line-through': checked }" v-html="taskBodyFormated">
+            class="ml-0 mr-4 border border-[#8A94A6] dark:border-slate-500 shrink-0" style="height: 24px !important; width: 24px !important;">
+        <li @click="$emit('editListItem', taskID)" class="flex items-center my-2 dark:text-slate-500" :class="{ 'line-through': checked }" v-html="taskBodyFormated">
         </li>
     </div>
 </template>
