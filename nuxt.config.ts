@@ -1,9 +1,5 @@
-import { Link } from "#build/components";
-
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  css: ['assets/styles.css'],
   app: {
     head: {
       link: [
@@ -17,6 +13,11 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     'nuxt-feather-icons',
     '@pinia/nuxt',
-    '@nuxtjs/i18n'
-  ]
+    '@nuxtjs/i18n',
+    '@nuxtjs/color-mode'
+  ],
+  // @ts-ignore
+  colorMode: {
+    classSuffix: ''
+  }
 })

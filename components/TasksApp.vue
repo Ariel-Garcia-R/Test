@@ -1,9 +1,12 @@
 <script setup>
+const editableTask = reactive({})
+const insertTaskOnEditor = (task) => {
+    editableTask.value = task
+}
+
 </script>
 
 <template>
-   <div class="m-3">
-     <NewTask />
-     <TasksList />
-   </div>
+     <NewTask :editableTask="editableTask" />
+     <TasksList @task-to-edit="(task) => insertTaskOnEditor(task)" />
 </template>

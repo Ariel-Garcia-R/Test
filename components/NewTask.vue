@@ -2,6 +2,25 @@
 import Mark from 'mark.js';
 import { useTaskStore } from "@/store/store";
 
+const props = defineProps({
+    editableTask: {
+        type: Object,
+        required: false,
+        default: {}
+    }
+})
+
+watch(props.editableTask, () => {
+    console.log("llega la tarea a  la prop");
+    if( isEmptyTask && isTaskBoxOpen ){
+        newTask.id = props.editableTask.id
+        newTask.body = props.editableTask.value.body
+        newTask.bodyFormated = props.editableTask.bodyFormated
+        newTask.isCompleted = props.editableTask.isCompleted
+        highlighter.value.innerText = newTask.body
+    }
+})
+
 const { taskListNumber, addTaskToStore } = useTaskStore()
 const isTaskBoxOpen = ref(false)
 const isEmptyTask = ref(true);
@@ -69,10 +88,10 @@ watch(newTask, () => {
             <div class="mx-3 my-2">
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
-            <div class="w-full pt-[5px] overflow-y-scroll focus:outline-none" ref="highlighter" contenteditable="true" @input="updateText()"></div>
+            <div class="w-full pt-[5px] overflow-y-auto focus:outline-none" ref="highlighter" contenteditable="true" @input="updateText()"></div>
         </div>
         <div class="flex justify-between bg-[#FAFBFB] h-14 items-center px-2">
-            <div class="flex gap-1">
+            <div class="flex gap-[1px] xl:gap-1">
                 <SharedIconButton :disabled="isEmptyTask"><template #icon>
                         <Maximize2Icon size="20" />
                     </template>{{ $t('openButton') }}
@@ -90,14 +109,17 @@ watch(newTask, () => {
                 <SharedIconButton :disabled="isEmptyTask"> <template #icon>
                         <UnlockIcon size="20" />
                     </template>{{ $t('estimationButton') }}</SharedIconButton>
-
-            </div>
-            <div class="flex gap-1">
-                <SharedButton bg-color="#EAF0F5" color="black">{{ $t('cancelButton') }}</SharedButton>
-                <SharedButton @keyup.enter="saveTaskToStore()" @click="saveTaskToStore()">{{ isEmptyTask ? $t('confirmButtonEmpty') : $t('confirmButton')
-                    }}
-                </SharedButton>
-            </div>
+                    
+                </div>
+                <div class="flex gap-1">
+                    <SharedButton class="hidden xl:block" bg-color="#EAF0F5" color="black">{{ $t('cancelButton') }}</SharedButton>
+                    <SharedButton class="hidden xl:block" @click="saveTaskToStore()">{{ isEmptyTask ? $t('confirmButtonEmpty') : $t('confirmButton') }} </SharedButton>
+                    <SharedButton class="xl:hidden" @click="saveTaskToStore()">
+                        <XIcon v-if="isEmptyTask && newTask.id === null" size="20" />
+                        <SaveIcon v-else-if="!isEmptyTask && newTask.id" size="20" />
+                        <PlusIcon v-else size="20" />
+                    </SharedButton>
+                </div>
         </div>
     </div>
 </template>

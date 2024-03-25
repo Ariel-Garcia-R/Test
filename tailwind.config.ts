@@ -1,9 +1,12 @@
-export default {
+//@ts-ignore
+import type { Config } from 'tailwindcss'
+
+export default <Partial<Config>>{
+  darkMode: 'class',
   theme: {
     extend: {
       screens: {
         'xl': '1230px',
-        // => @media (min-width: 992px) { ... }
       },
     },
   },
