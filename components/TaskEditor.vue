@@ -15,7 +15,7 @@ const defaultTaskItem = {
 const isTaskBoxOpen = ref(false)
 const taskItem = ref({ ...defaultTaskItem })
 const creatingNewTask = computed(() => taskItem.value.body != '' && isTaskBoxOpen && !taskItem.value.id)
-const isEmptyTask = computed(() => taskItem.value.body === '');
+const isEmptyTask = computed(() => taskItem.value.body === '')
 const toggleTaskBox = () => isTaskBoxOpen.value = !isTaskBoxOpen.value
 
 watch(creatingNewTask, () => {
@@ -62,7 +62,7 @@ const saveTaskToStore = () => {
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
 <ClientOnly>
-                <textarea v-model="taskItem.body" id="task-editor" name="task-editor" tabindex="1"
+                <textarea value="eres tu" v-model="taskItem.body" id="task-editor" name="task-editor" tabindex="1"
                     class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
                     :placeholder="$t('taskPlaceholder')">
                 </textarea>
@@ -106,5 +106,11 @@ const saveTaskToStore = () => {
             </div>
         </div>
     </div>
-    solo html en ClientOnly
+    <pre>
+        solo html en ClientOnly
+        
+        isEmptyTask : {{ isEmptyTask }}
+        taskItem.id : {{ taskItem.id }}
+        taskItem.body : {{ taskItem.body }}
+    </pre>
 </template>
