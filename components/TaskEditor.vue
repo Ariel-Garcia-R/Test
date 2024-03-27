@@ -13,9 +13,9 @@ const defaultTaskItem = {
 }
 
 const isTaskBoxOpen = ref(false)
-const taskItem = reactive({ ...defaultTaskItem })
-const creatingNewTask = computed(() => taskItem.body != '' && isTaskBoxOpen && !taskItem.id)
-const isEmptyTask = computed(() => taskItem.body === '');
+const taskItem = ref({ ...defaultTaskItem })
+const creatingNewTask = computed(() => taskItem.value.body != '' && isTaskBoxOpen && !taskItem.value.id)
+const isEmptyTask = computed(() => taskItem.value.body === '');
 const toggleTaskBox = () => isTaskBoxOpen.value = !isTaskBoxOpen.value
 
 watch(creatingNewTask, () => {
@@ -23,26 +23,27 @@ watch(creatingNewTask, () => {
 })
 
 watch(isEditingExistingTask, () => {
-    if (isEmptyTask) {
-        Object.assign(taskItem, getEditingTask.value)
+    if (isEmptyTask.value) {
+        taskItem.value = getEditingTask.value;
     }
 })
 
 const clearTaskEditor = () => {
-    Object.assign(taskItem, defaultTaskItem);
+    taskItem.value = { ...defaultTaskItem };
 }
 
 const saveTaskToStore = () => {
     if (isEmptyTask.value) {
         toggleTaskBox()
     }
-    else if (taskItem.id) {
-        updateTask({ ...taskItem })
+    else if (taskItem.value.id) {
+        updateTask({ ...taskItem.value })
         setIsEditingExistingTask(false)
         clearTaskEditor()
     }
     else {
-        addTask(taskItem)
+        addTask(taskItem.value)
+        setIsCreatingNewTask(false)
         clearTaskEditor()
     }
 }
@@ -61,7 +62,8 @@ const saveTaskToStore = () => {
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
             <textarea id="task-editor" name="task-editor" v-model="taskItem.body" tabindex="1"
-                class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none" :placeholder="$t('taskPlaceholder') "></textarea>
+                class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
+                :placeholder="$t('taskPlaceholder')"></textarea>
         </div>
         <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
             <div class="flex gap-[5px] xl:gap-1">
