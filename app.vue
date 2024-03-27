@@ -1,5 +1,5 @@
 <template>
-    <SharedTopBar></SharedTopBar>
+    <LayoutTopBar></LayoutTopBar>
     <TasksApp />
 </template>
 
@@ -29,5 +29,14 @@ input[type="checkbox"]:checked {
     background: url(/assets/checkbox.png) center;
     background-size: 34px 34px;
     border: none
+}
+
+.gradient-title {
+ color: #007BFF;
+ background-image: linear-gradient(to right, #0D55CF, #64acff);
+ background-clip: text;
+ -webkit-background-clip: text;
+ background-clip: text;
+ color: transparent;
 }
 </style>

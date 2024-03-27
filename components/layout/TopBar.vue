@@ -16,15 +16,15 @@ const switchColorMode = () => {
 <template>
     <nav class="dark:bg-slate-800 flex justify-between items-center px-4">
         <h1
-            class="text-center text-2xl xl:text-4xl font-black my-3 bg-gradient-to-r from-[#0D55CF] via-blue-500 to-blue-300 text-transparent bg-clip-text">
+            class="text-center text-2xl xl:text-4xl font-black my-3 gradient-title">
             {{ $t('appTittle') }}
         </h1>
-        <div class="flex gap-1">
-            <SharedButton class="lg:px-3 xl:mx-3" @click="switchColorMode">
+        <div class="flex">
+            <SharedButton class="mx-[2px] lg:px-3 xl:mx-3" @click="switchColorMode">
                 <SunIcon v-if="colorMode.preference === 'dark'" />
                 <MoonIcon v-else />
             </SharedButton>
-            <div class="flex justify-center items-center">
+            <div class="flex mx-[2px] justify-center items-center">
                 <div class="relative inline-block text-left">
                     <div>
                         <SharedButton @click="isLenguageMenuOpen = !isLenguageMenuOpen" type="button" class="px-3">

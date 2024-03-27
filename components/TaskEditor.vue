@@ -60,9 +60,8 @@ const saveTaskToStore = () => {
             <div class="mx-3 my-2">
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
-            <textarea id="task-editor" name="task-editor" v-model="taskItem.body"
-                class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto focus:outline-none"
-                resize="false"></textarea>
+            <textarea id="task-editor" name="task-editor" v-model="taskItem.body" tabindex="1"
+                class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none" :placeholder="$t('taskPlaceholder') "></textarea>
         </div>
         <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
             <div class="flex gap-[5px] xl:gap-1">
@@ -95,7 +94,7 @@ const saveTaskToStore = () => {
         $t('confirmButtonEmpty') :
         (isEditingExistingTask ? $t('confirmSaveButton') : $t('confirmButton')) }} </SharedButton>
                 <SharedButton class="xl:hidden" @click="saveTaskToStore()">
-                    <XIcon v-if="isEmptyTask && taskItem.id === null" size="20" />
+                    <XIcon v-if="isEmptyTask" size="20" />
                     <SaveIcon v-else-if="!isEmptyTask && taskItem.id" size="20" />
                     <PlusIcon v-else size="20" />
                 </SharedButton>
