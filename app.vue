@@ -39,4 +39,39 @@ input[type="checkbox"]:checked {
  background-clip: text;
  color: transparent;
 }
+
+.pill{
+    height: 24px; 
+    align-items: center; 
+    font-weight: 500; 
+    border-radius: 12px; 
+    padding: 1px 8px; 
+    /* font-size: 0.875rem */
+}
+
+.contact-pill{
+    background-color: #ADF0D9; 
+    color: #07A873;
+}
+
+.email-pill{
+    background-color: #FFE6C7;
+    color: #F58E0A;
+}
+
+.hashtag-pill{
+    background-color: #DBC7FF; 
+    color: #702EE6;
+}
+
+.link-pill{
+    background-color: #D6EBFF; 
+    color: #007FFF;
+}
+
+.no-wrap {
+    white-space: nowrap;
+    overflow: hidden; /* Oculta el texto que excede el ancho del contenedor */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto excede el ancho del contenedor */
+ }
 </style>

@@ -7,7 +7,7 @@ export const useTaskStore = defineStore('tasks', () => {
   const taskArray = ref<TaskInterface[]>([]);
   const creatingNewTask = ref(false);
   const editingExistingTask = ref(false);
-  const editingTask = ref<TaskInterface | null>({
+  const editingTask = ref<TaskInterface>({
     id: '',
     body: '',
     formattedBody: '',

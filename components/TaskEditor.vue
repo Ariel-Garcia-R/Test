@@ -1,54 +1,63 @@
-<script setup>
+<script setup lang="ts">
+import type { TaskInterface } from "~/types/taskInterface";
 import { useTaskStore } from "@/store/store";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia';
 
-const taskStore = useTaskStore()
-const { addTask, setIsCreatingNewTask, setIsEditingExistingTask, updateTask } = taskStore
-const { isEditingExistingTask, getEditingTask } = storeToRefs(taskStore)
-const defaultTaskItem = {
-    id: null,
+const taskStore = useTaskStore();
+const { addTask, setIsCreatingNewTask, setIsEditingExistingTask, updateTask, setEditingTask } = taskStore;
+const { isEditingExistingTask, getEditingTask } = storeToRefs(taskStore);
+
+const defaultTaskItem: TaskInterface = {
+    id: '',
     body: '',
     formattedBody: '',
     isCompleted: false
-}
+};
 
-const isTaskBoxOpen = ref(false)
-const taskItem = ref({ ...defaultTaskItem })
-const creatingNewTask = computed(() => taskItem.value.body != '' && isTaskBoxOpen && !taskItem.value.id)
-const isEmptyTask = computed(() => taskItem.value.body === '')
-const toggleTaskBox = () => isTaskBoxOpen.value = !isTaskBoxOpen.value
+const isTaskBoxOpen = ref(false);
+const taskItem = ref<TaskInterface>({ ...defaultTaskItem });
+const creatingNewTask = computed(() => taskItem.value.body != '' && isTaskBoxOpen.value && !taskItem.value.id);
+const isEmptyTask = computed(() => taskItem.value.body === '');
+
+const toggleTaskBox = (): void => {
+    isTaskBoxOpen.value = !isTaskBoxOpen.value;
+};
 
 watch(creatingNewTask, () => {
-    setIsCreatingNewTask(creatingNewTask.value)
-})
+    setIsCreatingNewTask(creatingNewTask.value);
+});
 
 watch(isEditingExistingTask, () => {
     if (isEmptyTask.value) {
         taskItem.value = getEditingTask.value;
     }
-})
+});
 
-const clearTaskEditor = () => {
+const clearTaskEditor = (): void => {
     taskItem.value = { ...defaultTaskItem };
-}
+};
 
-const saveTaskToStore = () => {
+const saveTaskToStore = (): void => {
     if (isEmptyTask.value) {
-        toggleTaskBox()
+        toggleTaskBox();
+    } else if (taskItem.value.id) {
+        updateTask({ ...taskItem.value });
+        setIsEditingExistingTask(false);
+        clearTaskEditor();
+    } else {
+        addTask(taskItem.value);
+        setIsCreatingNewTask(false);
+        clearTaskEditor();
     }
-    else if (taskItem.value.id) {
-        updateTask({ ...taskItem.value })
-        setIsEditingExistingTask(false)
-        clearTaskEditor()
-    }
-    else {
-        addTask(taskItem.value)
-        setIsCreatingNewTask(false)
-        clearTaskEditor()
-    }
+};
+
+const cancel = (): void => {
+    setIsCreatingNewTask(false);
+    setIsEditingExistingTask(false);
+    isTaskBoxOpen.value = false
+    setEditingTask({ ...defaultTaskItem });
+    taskItem.value = { ...defaultTaskItem }
 }
-
-
 </script>
 
 <template>
@@ -61,12 +70,15 @@ const saveTaskToStore = () => {
             <div class="mx-3 my-2">
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
-<ClientOnly>
-                <textarea value="eres tu" v-model="taskItem.body" id="task-editor" name="task-editor" tabindex="1"
+            <ClientOnly>
+                <textarea v-model="taskItem.body" id="task-editor" name="task-editor"
                     class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
                     :placeholder="$t('taskPlaceholder')">
                 </textarea>
-</ClientOnly>
+            </ClientOnly>
+            <div class="w-10 pt-2" :class="{'opacity-50': isEmptyTask}">
+                <img class="h-6 w-6 rounded-full bg-cover" src="/avatar.png" alt="avatar">
+            </div>
         </div>
         <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
             <div class="flex gap-[5px] xl:gap-1">
@@ -93,7 +105,7 @@ const saveTaskToStore = () => {
 
             </div>
             <div class="flex gap-1">
-                <SharedButton class="hidden xl:block bg-[#EAF0F5] text-slate-950 dark:bg-slate-700 dark:text-slate-300">
+                <SharedButton @click="cancel()" class="hidden xl:block bg-[#EAF0F5] text-slate-950 dark:bg-slate-700 dark:text-slate-300">
                     {{ $t('cancelButton') }}</SharedButton>
                 <SharedButton class="hidden xl:block" @click="saveTaskToStore()">{{ isEmptyTask ?
         $t('confirmButtonEmpty') :
@@ -106,11 +118,4 @@ const saveTaskToStore = () => {
             </div>
         </div>
     </div>
-    <pre>
-        solo html en ClientOnly
-        
-        isEmptyTask : {{ isEmptyTask }}
-        taskItem.id : {{ taskItem.id }}
-        taskItem.body : {{ taskItem.body }}
-    </pre>
 </template>

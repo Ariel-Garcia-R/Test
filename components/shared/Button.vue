@@ -1,23 +1,24 @@
-<script setup>
+<script setup lang="ts">
+
 const props = defineProps({
-    disabled:{
+    disabled: {
         type: Boolean,
-        required: false
+        required: false,
+        default: false,
     },
-    class:{
+    class: {
         type: String,
         required: false,
-        default: ''
-    }
-})
+        default: '', 
+    },
+});
 </script>
-
 
 <template>
     <button 
-    :disabled="disabled" 
-    class="py-2 px-3 lg:px-6 rounded text-[14px] flex place-items-center gap-2 h-10 font-medium bg-[#0D55CF] hover:opacity-50 text-white"
-    :class="`${props.class}`">
+        :disabled="props.disabled" 
+        class="py-2 px-3 lg:px-6 rounded text-[14px] flex place-items-center gap-2 h-10 font-medium bg-[#0D55CF] hover:opacity-50 text-white"
+        :class="`${props.class}`">
         <slot />
     </button>
 </template>
