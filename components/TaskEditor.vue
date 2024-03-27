@@ -61,9 +61,12 @@ const saveTaskToStore = () => {
             <div class="mx-3 my-2">
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
-            <textarea id="task-editor" name="task-editor" tabindex="1"
-                class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
-                :placeholder="$t('taskPlaceholder')"></textarea>
+<ClientOnly>
+                <textarea v-model="taskItem.body" id="task-editor" name="task-editor" tabindex="1"
+                    class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
+                    :placeholder="$t('taskPlaceholder')">
+                </textarea>
+</ClientOnly>
         </div>
         <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
             <div class="flex gap-[5px] xl:gap-1">
@@ -103,5 +106,5 @@ const saveTaskToStore = () => {
             </div>
         </div>
     </div>
-    solo html
+    solo html en ClientOnly
 </template>
