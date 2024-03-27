@@ -13,6 +13,7 @@ export default defineI18nConfig(() => ({
         highlightButton: 'Highlight',
         estimationButton: 'Estimation',
         confirmButtonEmpty: 'Ok',
+        confirmSaveButton: 'Save',
         confirmButton: 'Add',
         cancelButton: 'Cancel'
 
@@ -29,7 +30,9 @@ export default defineI18nConfig(() => ({
         estimationButton: 'Estimación',
         confirmButtonEmpty: 'OK',
         confirmButton: 'Agregar',
-        cancelButton: 'Cancelar'
+        confirmSaveButton: 'Guardar',
+        cancelButton: 'Cancelar',
+        
 
       }
     }

@@ -2,6 +2,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     head: {
+      title: 'Task App',
       link: [
         {rel: 'preconnect', href:'https://fonts.googleapis.com'},
         {rel: 'preconnect', href: 'https://fonts.gstatic.com'},

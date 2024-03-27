@@ -27,7 +27,7 @@ const switchColorMode = () => {
             <div class="flex justify-center items-center">
                 <div class="relative inline-block text-left">
                     <div>
-                        <SharedButton @focusout="isLenguageMenuOpen = !isLenguageMenuOpen" @click="isLenguageMenuOpen = !isLenguageMenuOpen" type="button" class="px-3">
+                        <SharedButton @click="isLenguageMenuOpen = !isLenguageMenuOpen" type="button" class="px-3">
                             <GlobeIcon />
                         </SharedButton>
                     </div>

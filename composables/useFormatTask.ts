@@ -17,6 +17,7 @@ export const useFormatTask = (taskBody: string) => {
 
     if (taskBody.includes("#")) {
         formattedByHashTag = taskBody.replace(/(#\w+)/g, '<span style="display: inline-flex; height: 24px; align-items:center; background-color: #DBC7FF; color: #702EE6; font-weight: 500; border-radius: 12px; padding: 1px 8px; font-size: 0.875rem">$1</span>')
+        // formattedByHashTag = taskBody.replace(/(#\w+\s)/g, '<span style="display: inline-flex; height: 24px; align-items:center; background-color: #DBC7FF; color: #702EE6; font-weight: 500; border-radius: 12px; padding: 1px 8px; font-size: 0.875rem">$1</span>')
         formattedTaskBody = formattedByHashTag
     }
     if (taskBody.includes("@")) {
@@ -34,5 +35,5 @@ export const useFormatTask = (taskBody: string) => {
     }
 
 
-    return formattedTaskBody
+    return `<p class="items-center hover:text-opacity-15">${formattedTaskBody}</p>`
 }
