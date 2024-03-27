@@ -22,7 +22,7 @@ export default defineI18nConfig(() => ({
       sp: {
         appTittle: 'App de Tareas',
         welcome: 'Bienvenido',
-        taskPlaceholder: 'Escribe para agregar una nueva tarea',
+        taskPlaceholder: 'Escribe una nueva tarea',
         openButton: 'Abrir',
         todayButton: 'Hoy',
         publicButton: 'Público',

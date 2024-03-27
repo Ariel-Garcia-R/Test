@@ -1,6 +1,10 @@
-# Nuxt 3 Minimal Starter
+# Task APP
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Developed using [Nuxt 3](https://nuxt.com/docs/getting-started/introduction) and [@nuxtjs/tailwindcss](https://tailwindcss.nuxtjs.org/) ,[nuxt-feather-icons](https://github.com/4sllan/nuxt-feather-icons), [@pinia/nuxt](https://pinia.vuejs.org/) and [@nuxtjs/i18n](https://i18n.nuxtjs.org/)
+modules
+
+### Demo site:  [here](https://test-ariel-garcia-r.vercel.app/)
+
 
 ## Setup
 
@@ -55,21 +59,3 @@ yarn build
 # bun
 bun run build
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

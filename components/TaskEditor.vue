@@ -14,8 +14,8 @@ const defaultTaskItem = {
 
 const isTaskBoxOpen = ref(false)
 const taskItem = reactive({ ...defaultTaskItem })
-const creatingNewTask = computed( () => taskItem.body != '' && isTaskBoxOpen && !taskItem.id )
-const isEmptyTask = computed( () => taskItem.body === '');
+const creatingNewTask = computed(() => taskItem.body != '' && isTaskBoxOpen && !taskItem.id)
+const isEmptyTask = computed(() => taskItem.body === '');
 const toggleTaskBox = () => isTaskBoxOpen.value = !isTaskBoxOpen.value
 
 watch(creatingNewTask, () => {
@@ -23,28 +23,23 @@ watch(creatingNewTask, () => {
 })
 
 watch(isEditingExistingTask, () => {
-    if(isEmptyTask){
-        Object.assign(taskItem, getEditingTask.value) 
+    if (isEmptyTask) {
+        Object.assign(taskItem, getEditingTask.value)
     }
 })
 
-
-
 const clearTaskEditor = () => {
-        Object.assign(taskItem, defaultTaskItem);
+    Object.assign(taskItem, defaultTaskItem);
 }
 
 const saveTaskToStore = () => {
     if (isEmptyTask.value) {
         toggleTaskBox()
-
-
-    } 
-    else if(taskItem.id){
+    }
+    else if (taskItem.id) {
         updateTask({ ...taskItem })
-        setIsEditingExistingTask( false )
+        setIsEditingExistingTask(false)
         clearTaskEditor()
-        
     }
     else {
         addTask(taskItem)
@@ -65,12 +60,16 @@ const saveTaskToStore = () => {
             <div class="mx-3 my-2">
                 <PlusSquareIcon size="20" class="text-[#007FFF]" />
             </div>
-            <textarea id="task-editor" name="task-editor" v-model="taskItem.body" class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto focus:outline-none"
-             resize="false"></textarea>
+            <textarea id="task-editor" name="task-editor" v-model="taskItem.body"
+                class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto focus:outline-none"
+                resize="false"></textarea>
         </div>
         <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
             <div class="flex gap-[5px] xl:gap-1">
-                <SharedIconButton :disabled="isEmptyTask" class="bg-[#EAF0F5] disabled:text-opacity-55 text-black border-none dark:bg-slate-700 dark:text-slate-400 dark:disabled:text-slate-500" icon-class="disabled:text-[#4E5D78] text-[#04142F] dark:disabled:text-slate-600 dark:text-slate-500"><template #icon>
+                <SharedIconButton :disabled="isEmptyTask"
+                    class="bg-[#EAF0F5] disabled:text-opacity-55 text-black border-none dark:bg-slate-700 dark:text-slate-400 dark:disabled:text-slate-500"
+                    icon-class="disabled:text-[#4E5D78] text-[#04142F] dark:disabled:text-slate-600 dark:text-slate-500">
+                    <template #icon>
                         <Maximize2Icon size="20" />
                     </template>{{ $t('openButton') }}
                 </SharedIconButton>
@@ -90,12 +89,11 @@ const saveTaskToStore = () => {
 
             </div>
             <div class="flex gap-1">
-                <SharedButton
-                    class="hidden xl:block bg-[#EAF0F5] text-slate-950 dark:bg-slate-700 dark:text-slate-300">
+                <SharedButton class="hidden xl:block bg-[#EAF0F5] text-slate-950 dark:bg-slate-700 dark:text-slate-300">
                     {{ $t('cancelButton') }}</SharedButton>
                 <SharedButton class="hidden xl:block" @click="saveTaskToStore()">{{ isEmptyTask ?
         $t('confirmButtonEmpty') :
-        (isEditingExistingTask? $t('confirmSaveButton') : $t('confirmButton'))}} </SharedButton>
+        (isEditingExistingTask ? $t('confirmSaveButton') : $t('confirmButton')) }} </SharedButton>
                 <SharedButton class="xl:hidden" @click="saveTaskToStore()">
                     <XIcon v-if="isEmptyTask && taskItem.id === null" size="20" />
                     <SaveIcon v-else-if="!isEmptyTask && taskItem.id" size="20" />
