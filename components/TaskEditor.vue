@@ -97,7 +97,8 @@ const handleTextInput = (event: Event): void => {
         name="task-editor" 
         class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
         :placeholder="$t('taskPlaceholder')"
-        @keyup="handleTextInput"
+        @keyup.enter="saveTaskToStore"
+        @keypress="handleTextInput"
       />
       <div 
         class="w-24 relative" 
@@ -152,7 +153,7 @@ const handleTextInput = (event: Event): void => {
         </SharedButton>
         <SharedButton
           class="hidden xl:block"
-          @click="saveTaskToStore()"
+          @click="saveTaskToStore"
         >
           {{ isEmptyTask ?
             $t('confirmButtonEmpty') :
@@ -160,7 +161,7 @@ const handleTextInput = (event: Event): void => {
         </SharedButton>
         <SharedButton
           class="xl:hidden"
-          @click="saveTaskToStore()"
+          @click="saveTaskToStore"
         >
           <XIcon
             v-if="isEmptyTask"
