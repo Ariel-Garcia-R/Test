@@ -97,7 +97,7 @@ const handleTextInput = (event: Event): void => {
         name="task-editor" 
         class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
         :placeholder="$t('taskPlaceholder')"
-        @keydown="handleTextInput"
+        @keyup="handleTextInput"
       />
       <div 
         class="w-24 relative" 
