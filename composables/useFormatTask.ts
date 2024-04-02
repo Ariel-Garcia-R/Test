@@ -1,5 +1,5 @@
 export const useFormatTask = (taskBody: string) => {
-    var formattedTaskBody = taskBody
+    let formattedTaskBody = taskBody
     const mentionRegex = /\B(@\w+)\b/g;
     const hashtagRegex = /#[a-zA-Z0-9_-]+/g;
     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;

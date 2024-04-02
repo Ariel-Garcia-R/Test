@@ -4,9 +4,9 @@ export default defineNuxtConfig({
     head: {
       title: 'Tasks App',
       link: [
-        {rel: 'preconnect', href:'https://fonts.googleapis.com'},
-        {rel: 'preconnect', href: 'https://fonts.gstatic.com'},
-        {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap'}
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap' }
       ]
     }
   },
@@ -15,9 +15,10 @@ export default defineNuxtConfig({
     'nuxt-feather-icons',
     '@pinia/nuxt',
     '@nuxtjs/i18n',
-    '@nuxtjs/color-mode'
+    '@nuxtjs/color-mode',
+    '@nuxtjs/eslint-module',
   ],
-  // @ts-ignore
+
   colorMode: {
     classSuffix: ''
   }

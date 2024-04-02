@@ -1,6 +1,6 @@
 <template>
-    <LayoutTopBar></LayoutTopBar>
-    <TasksApp />
+  <LayoutTopBar />
+  <TasksApp />
 </template>
 
 <style>

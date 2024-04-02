@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "@nuxt/eslint-config"
+    ],
+    "rules": {
+        "vue/no-v-html": 0,
+        "eslint-plugin-vue/no-v-text-v-html-on-component": 0
+
+    }
+}

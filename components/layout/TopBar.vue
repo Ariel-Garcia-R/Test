@@ -14,41 +14,63 @@ const switchColorMode = () => {
 </script>
 
 <template>
-    <nav class="dark:bg-slate-800 flex justify-between items-center px-4">
-        <h1
-            class="text-center text-2xl xl:text-4xl font-black my-3 gradient-title">
-            {{ $t('appTittle') }}
-        </h1>
-        <div class="flex">
-            <SharedButton class="mx-[2px] lg:px-3 xl:mx-3" @click="switchColorMode">
-                <SunIcon v-if="colorMode.preference === 'dark'" />
-                <MoonIcon v-else />
+  <nav class="dark:bg-slate-800 flex justify-between items-center px-4">
+    <h1
+      class="text-center text-2xl xl:text-4xl font-black my-3 gradient-title"
+    >
+      {{ $t('appTittle') }}
+    </h1>
+    <div class="flex">
+      <SharedButton
+        class="mx-[2px] lg:px-3 xl:mx-3"
+        @click="switchColorMode"
+      >
+        <SunIcon v-if="colorMode.preference === 'dark'" />
+        <MoonIcon v-else />
+      </SharedButton>
+      <div class="flex mx-[2px] justify-center items-center">
+        <div class="relative inline-block text-left">
+          <div>
+            <SharedButton
+              type="button"
+              class="px-3"
+              @click="isLenguageMenuOpen = !isLenguageMenuOpen"
+            >
+              <GlobeIcon />
             </SharedButton>
-            <div class="flex mx-[2px] justify-center items-center">
-                <div class="relative inline-block text-left">
-                    <div>
-                        <SharedButton @click="isLenguageMenuOpen = !isLenguageMenuOpen" type="button" class="px-3">
-                            <GlobeIcon />
-                        </SharedButton>
-                    </div>
+          </div>
 
-                    <div :class="{ 'hidden': !isLenguageMenuOpen }"
-                        class="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5"
-                        role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <div class="py-1" role="none" >
-                            <button @click="() => { locale = 'en'; isLenguageMenuOpen = false }"
-                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900"
-                                role="menuitem">ENG</button>
-                            <button @click="() => { locale = 'sp'; isLenguageMenuOpen = false }"
-                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900"
-                                role="menuitem">ESP</button>
-                        </div>
-                    </div>
-                </div>
+          <div
+            :class="{ 'hidden': !isLenguageMenuOpen }"
+            class="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <div
+              class="py-1"
+              role="none"
+            >
+              <button
+                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900"
+                role="menuitem"
+                @click="() => { locale = 'en'; isLenguageMenuOpen = false }"
+              >
+                ENG
+              </button>
+              <button
+                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-900"
+                role="menuitem"
+                @click="() => { locale = 'sp'; isLenguageMenuOpen = false }"
+              >
+                ESP
+              </button>
             </div>
+          </div>
         </div>
-
-    </nav>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <style lang="postcss">

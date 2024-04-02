@@ -15,10 +15,11 @@ const props = defineProps({
 </script>
 
 <template>
-    <button 
-        :disabled="props.disabled" 
-        class="py-2 px-3 lg:px-6 rounded text-[14px] flex place-items-center gap-2 h-10 font-medium bg-[#0D55CF] hover:opacity-50 text-white"
-        :class="`${props.class}`">
-        <slot />
-    </button>
+  <button 
+    :disabled="props.disabled" 
+    class="py-2 px-3 lg:px-6 rounded text-[14px] flex place-items-center gap-2 h-10 font-medium bg-[#0D55CF] hover:opacity-50 text-white"
+    :class="`${props.class}`"
+  >
+    <slot />
+  </button>
 </template>
