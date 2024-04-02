@@ -7,6 +7,7 @@ const taskStore = useTaskStore();
 const { addTask, setIsCreatingNewTask, setIsEditingExistingTask, updateTask, setEditingTask } = taskStore;
 const { isEditingExistingTask, getEditingTask } = storeToRefs(taskStore);
 
+const maxChars = 280
 const defaultTaskItem: TaskInterface = {
     id: '',
     body: '',
@@ -23,11 +24,11 @@ const toggleTaskBox = (): void => {
     isTaskBoxOpen.value = !isTaskBoxOpen.value;
 };
 
-watch(creatingNewTask, () => {
+watch(creatingNewTask, (): void => {
     setIsCreatingNewTask(creatingNewTask.value);
 });
 
-watch(isEditingExistingTask, () => {
+watch(isEditingExistingTask, (): void => {
     if (isEmptyTask.value) {
         taskItem.value = getEditingTask.value;
     }
@@ -58,6 +59,16 @@ const cancel = (): void => {
     setEditingTask({ ...defaultTaskItem });
     taskItem.value = { ...defaultTaskItem }
 }
+
+const handleTextInput = (event: Event): void => {
+  const textarea = event.target as HTMLTextAreaElement
+    if( textarea.value.length <= maxChars ){
+      taskItem.value.body = textarea.value
+    } else {
+      taskItem.value.body = textarea.value = textarea.value.substring(0, maxChars)
+    }
+} 
+
 </script>
 
 <template>
@@ -81,21 +92,23 @@ const cancel = (): void => {
         />
       </div>
       <textarea 
-        id="task-editor" 
-        v-model="taskItem.body" 
-        name="task-editor"
+        id="task-editor"
+        :value="taskItem.body"
+        name="task-editor" 
         class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
         :placeholder="$t('taskPlaceholder')"
+        @keydown="handleTextInput"
       />
       <div 
-        class="w-10 pt-2" 
+        class="w-24 relative" 
         :class="{'opacity-50': isEmptyTask}"
       >
         <img
-          class="h-6 w-6 rounded-full bg-cover"
+          class="h-6 w-6 rounded-full bg-cover absolute top-2 right-2"
           src="/avatar.png"
           alt="avatar"
         >
+        <span class="text-[.8rem] absolute bottom-2 right-2">{{ taskItem.body.length }} / {{ maxChars }}</span>
       </div>
     </div>
     <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">

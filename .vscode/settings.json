@@ -1,9 +1,9 @@
 {
-    // "eslint.format.enable": true,
+    "eslint.format.enable": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "always"
     },
-    "files.autoSave": "off",
-    "files.autoSaveDelay": 2000
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000
     
 }
