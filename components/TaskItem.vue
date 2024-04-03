@@ -43,7 +43,7 @@ const setTaskToEdit = () => {
     />
     <div
       v-if="!isCreatingNewTask"
-      class="min-w-44 flex items-center justify-end transition-all duration-300 ease-out h-full absolute right-0 bg-gradient-to-r to-60% from-transparent to-white dark:to-slate-900"
+      class="min-w-44 flex items-center justify-end transition-all duration-300 ease-out h-full absolute right-0 bg-gradient-to-r to-60% from-transparent to-white dark:to-gray-900"
       :class="isShowingEditButton ? 'opacity-1' : 'opacity-0'"
     >
       <button
