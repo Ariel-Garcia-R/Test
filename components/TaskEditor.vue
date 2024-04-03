@@ -67,7 +67,7 @@ const handleTextInput = (event: Event): void => {
     } else {
       taskItem.value.body = textarea.value = textarea.value.substring(0, maxChars)
     }
-} 
+}
 
 </script>
 
@@ -132,14 +132,18 @@ const handleTextInput = (event: Event): void => {
             <UnlockIcon size="20" />
           </template>{{ $t('publicButton') }}
         </SharedIconButton>
-        <SharedIconButton :disabled="isEmptyTask">
+        <SharedIconButton
+          @click="taskItem.body += '#'"
+        >
           <template #icon>
-            <PenToolIcon size="20" />
+            <HashIcon size="20" />
           </template>{{ $t('highlightButton') }}
         </SharedIconButton>
-        <SharedIconButton :disabled="isEmptyTask">
+        <SharedIconButton 
+          @click="taskItem.body += '@'"
+        >
           <template #icon>
-            <StopCircleIcon size="20" />
+            <AtSignIcon size="20" />
           </template>{{ $t('estimationButton') }}
         </SharedIconButton>
       </div>
