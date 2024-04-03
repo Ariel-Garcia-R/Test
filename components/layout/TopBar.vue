@@ -42,7 +42,7 @@ const switchColorMode = () => {
 
           <div
             :class="{ 'hidden': !isLenguageMenuOpen }"
-            class="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5"
+            class="z-10 origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="options-menu"

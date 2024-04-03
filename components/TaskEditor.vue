@@ -84,7 +84,7 @@ const handleTextInput = (event: Event): void => {
     v-else
     class="flex-col w-full rounded-t border border-[#F1F3F4] dark:border-gray-800 my-5"
   >
-    <div class="h-16 w-full max-w-[1360px] flex">
+    <div class="h-24 xl:h-16 w-full max-w-[1360px] flex">
       <div class="mx-3 my-2">
         <PlusSquareIcon 
           size="20" 
@@ -97,8 +97,7 @@ const handleTextInput = (event: Event): void => {
         name="task-editor" 
         class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
         :placeholder="$t('taskPlaceholder')"
-        @keyup.enter="saveTaskToStore"
-        @keypress="handleTextInput"
+        @keyup="handleTextInput"
       />
       <div 
         class="w-24 relative" 
@@ -109,7 +108,7 @@ const handleTextInput = (event: Event): void => {
           src="/avatar.png"
           alt="avatar"
         >
-        <span class="text-[.8rem] absolute bottom-2 right-2">{{ taskItem.body.length }} / {{ maxChars }}</span>
+        <span class="text-[.8rem] absolute bottom-2 right-2">{{ taskItem.body.length }}/{{ maxChars }}</span>
       </div>
     </div>
     <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
@@ -146,7 +145,7 @@ const handleTextInput = (event: Event): void => {
       </div>
       <div class="flex gap-1">
         <SharedButton
-          class="hidden xl:block bg-[#EAF0F5] text-slate-950 dark:bg-slate-700 dark:text-slate-300"
+          class="hidden xl:block bg-[#EAF0F5] text-slate-900 dark:bg-slate-700 dark:text-slate-300"
           @click="cancel()"
         >
           {{ $t('cancelButton') }}

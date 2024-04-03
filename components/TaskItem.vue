@@ -23,7 +23,7 @@ const setTaskToEdit = () => {
 <template>
   <div
     :class="{ 'line-through': props.task.isCompleted }"
-    class="dark:text-slate-500 flex items-center rounded hover:bg-slate-50 hover:dark:bg-slate-900 hover:opacity-70 hover:translate-x-1 hover:ease-in transition-all"
+    class="dark:text-slate-500 flex relative items-center rounded hover:bg-slate-50 hover:dark:bg-slate-900 hover:opacity-70 hover:translate-x-1 hover:ease-in transition-all"
     @mouseenter="isShowingEditButton = true"
     @mouseleave="isShowingEditButton = false"
   >
@@ -43,7 +43,8 @@ const setTaskToEdit = () => {
     />
     <div
       v-if="!isCreatingNewTask"
-      class="min-w-24"
+      class="flex items-center justify-center transition-all ease-out h-full absolute right-0 bg-gradient-to-r from-transparent via-30% via-white to-white dark:via-slate-900 dark:to-slate-900 min-w-24"
+      :class="isShowingEditButton ? 'opacity-1' : 'opacity-0'"
     >
       <button
         v-if="isShowingEditButton && !itsBeenEdited"
