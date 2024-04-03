@@ -23,7 +23,7 @@ const setTaskToEdit = () => {
 <template>
   <div
     :class="{ 'line-through': props.task.isCompleted }"
-    class="dark:text-slate-500 flex relative items-center rounded hover:opacity-70 hover:translate-x-1 hover:ease-in transition-all"
+    class="dark:text-slate-500 flex relative items-center rounded hover:translate-x-1 hover:ease-in transition-all"
     @mouseenter="isShowingEditButton = true"
     @mouseleave="isShowingEditButton = false"
   >

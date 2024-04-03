@@ -75,6 +75,6 @@ const switchColorMode = () => {
 
 <style lang="postcss">
 body {
-    @apply min-h-screen bg-white dark:bg-gray-900 dark:text-gray-200;
+    @apply min-h-screen bg-white dark:bg-slate-900 dark:text-gray-200;
 }
 </style>
