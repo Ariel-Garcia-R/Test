@@ -95,7 +95,7 @@ const handleTextInput = (event: Event): void => {
         id="task-editor"
         :value="taskItem.body"
         name="task-editor" 
-        class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none"
+        class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none caret-blue-500"
         :placeholder="$t('taskPlaceholder')"
         @keyup="handleTextInput"
       />
@@ -145,7 +145,7 @@ const handleTextInput = (event: Event): void => {
       </div>
       <div class="flex gap-1">
         <SharedButton
-          class="hidden xl:block bg-[#EAF0F5] text-slate-900 dark:bg-slate-700 dark:text-slate-300"
+          class="hidden xl:block bg-[#EAF0F5] text-slate-800 dark:bg-slate-700 dark:text-slate-300"
           @click="cancel()"
         >
           {{ $t('cancelButton') }}
