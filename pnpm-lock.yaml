@@ -14,6 +14,9 @@ dependencies:
   nuxt-feather-icons:
     specifier: ^1.2.1
     version: 1.2.1
+  nuxt-snackbar:
+    specifier: ^1.0.4
+    version: 1.0.4(rollup@4.12.1)(vue@3.4.21)
   vue:
     specifier: ^3.4.21
     version: 3.4.21(typescript@5.4.3)
@@ -1373,7 +1376,6 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: true
 
   /@nuxt/schema@3.10.3(rollup@4.12.1):
     resolution: {integrity: sha512-a4cYbeskEVBPazgAhvUGkL/j7ho/iPWMK3vCEm6dRMjSqHVEITRosrj0aMfLbRrDpTrMjlRs0ZitxiaUfE/p5Q==}
@@ -1412,7 +1414,6 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: true
 
   /@nuxt/telemetry@2.5.3(rollup@4.12.1):
     resolution: {integrity: sha512-Ghv2MgWbJcUM9G5Dy3oQP0cJkUwEgaiuQxEF61FXJdn0a69Q4StZEP/hLF0MWPM9m6EvAwI7orxkJHM7MrmtVg==}
@@ -5551,6 +5552,18 @@ packages:
       pascalcase: 2.0.0
     dev: false
 
+  /nuxt-snackbar@1.0.4(rollup@4.12.1)(vue@3.4.21):
+    resolution: {integrity: sha512-7C8m7Kma60FYs1F0zw1bYSYj2lPtaTSIIXBdI1rc3mDMYngpnUTvZhoqBF5w/LyIggFpgNjpYKJLOpsW9wzcEA==}
+    dependencies:
+      '@nuxt/kit': 3.11.1(rollup@4.12.1)
+      defu: 6.1.4
+      vue3-snackbar: 2.2.1(vue@3.4.21)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
+    dev: false
+
   /nuxt@3.10.3(eslint@8.57.0)(rollup@4.12.1)(typescript@5.4.3)(vite@5.1.6):
     resolution: {integrity: sha512-NchGNiiz9g/ErJAb462W/lpX2NqcXYb9hugySKWvLXNdrjeAPiJ2/7mhgwUSiZA9MpjuQg3saiEajr1zlRIOCg==}
     engines: {node: ^14.18.0 || >=16.10.0}
@@ -7142,6 +7155,10 @@ packages:
       any-promise: 1.3.0
     dev: true
 
+  /tiny-emitter@2.1.0:
+    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
+    dev: false
+
   /tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
     dev: false
@@ -7241,7 +7258,6 @@ packages:
 
   /ufo@1.5.3:
     resolution: {integrity: sha512-Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==}
-    dev: true
 
   /ultrahtml@1.5.3:
     resolution: {integrity: sha512-GykOvZwgDWZlTQMtp5jrD4BVL+gNn2NVlVafjcFUJ7taY20tqYdwdoWBFy6GBJsNTZe1GkGPkSl5knQAjtgceg==}
@@ -7764,6 +7780,21 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.6.1
       vue: 3.4.21(typescript@5.4.3)
+
+  /vue3-icon@2.1.0:
+    resolution: {integrity: sha512-cnFiGAEwzp/KQKody2Yj8cBDP4Kez0AUp5mDnp052FA1fECl8a9uYUKLaeRdH0JakmZ7Jfp3tdHbpBEWF9sgBA==}
+    dev: false
+
+  /vue3-snackbar@2.2.1(vue@3.4.21):
+    resolution: {integrity: sha512-HIsqM6u30APfZ2Hj9v4vudddZ1LwWZZkcGhRTskVTqglAnQWooJxP/NoyFeBWTgasjJ5vDbwy8NdZEhZONz6WA==}
+    requiresBuild: true
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      tiny-emitter: 2.1.0
+      vue: 3.4.21(typescript@5.4.3)
+      vue3-icon: 2.1.0
+    dev: false
 
   /vue@3.4.21(typescript@5.4.3):
     resolution: {integrity: sha512-5hjyV/jLEIKD/jYl4cavMcnzKwjMKohureP8ejn3hhEjwhWIhWeuzL2kJAjzl/WyVsgPY56Sy4Z40C3lVshxXA==}

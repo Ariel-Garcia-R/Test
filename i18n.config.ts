@@ -8,13 +8,14 @@ export default defineI18nConfig(() => ({
       taskPlaceholder: 'Type to add new task',
       openButton: 'Open',
       todayButton: 'Today',
-      publicButton: 'Public',
+      publicButton: 'Copy',
       highlightButton: 'Tag',
       estimationButton: 'Mention',
       confirmButtonEmpty: 'Ok',
       confirmSaveButton: 'Save',
       confirmButton: 'Add',
-      cancelButton: 'Cancel'
+      cancelButton: 'Cancel',
+      copiedSuccess: 'Copied to clipboard'
     },
     sp: {
       appTittle: 'App de Tareas',
@@ -22,13 +23,14 @@ export default defineI18nConfig(() => ({
       taskPlaceholder: 'Escribe una nueva tarea',
       openButton: 'Abrir',
       todayButton: 'Hoy',
-      publicButton: 'Público',
+      publicButton: 'Copiar',
       highlightButton: 'Etiquetar',
       estimationButton: 'Mencionar',
       confirmButtonEmpty: 'OK',
       confirmButton: 'Agregar',
       confirmSaveButton: 'Guardar',
       cancelButton: 'Cancelar',
+      copiedSuccess: 'Copiado al cortapapeles'
 
 
     }

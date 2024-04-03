@@ -1,6 +1,7 @@
 <template>
   <LayoutTopBar />
   <TasksApp />
+  <NuxtSnackbar />
 </template>
 
 <style>
@@ -46,7 +47,7 @@ input[type="checkbox"]:checked {
     font-weight: 500; 
     border-radius: 12px; 
     padding: 1px 8px; 
-    /* font-size: 0.875rem */
+    font-size: 0.875rem
 }
 
 .contact-pill{
@@ -71,7 +72,9 @@ input[type="checkbox"]:checked {
 
 .no-wrap {
     white-space: nowrap;
-    overflow: hidden; /* Oculta el texto que excede el ancho del contenedor */
-    text-overflow: ellipsis; /* Muestra puntos suspensivos si el texto excede el ancho del contenedor */
+    overflow: hidden; 
+    text-overflow: ellipsis;
  }
+
+
 </style>

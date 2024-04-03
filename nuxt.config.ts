@@ -17,7 +17,16 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
     '@nuxtjs/eslint-module',
+    'nuxt-snackbar'
   ],
+
+  snackbar: {
+    bottom: true,
+    success: '#07A873',
+    messageClass: 'contact-pill',
+    duration: 3000,
+    groups: false
+  },
 
   colorMode: {
     classSuffix: ''

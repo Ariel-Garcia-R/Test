@@ -2,7 +2,10 @@
 import type { TaskInterface } from "~/types/taskInterface";
 import { useTaskStore } from "@/store/store";
 import { storeToRefs } from 'pinia';
+import { useI18n } from '#imports'
 
+const { t } = useI18n()
+const snackbar = useSnackbar();
 const taskStore = useTaskStore();
 const { addTask, setIsCreatingNewTask, setIsEditingExistingTask, updateTask, setEditingTask } = taskStore;
 const { isEditingExistingTask, getEditingTask } = storeToRefs(taskStore);
@@ -69,6 +72,18 @@ const handleTextInput = (event: Event): void => {
     }
 }
 
+const copyToClipboard = async () => {
+  try {
+    await navigator.clipboard.writeText(taskItem.value.body);
+    snackbar.add({
+      title: 'Copied ✍️',
+      text: t('copiedSuccess')
+   })
+ } catch (err) {
+    console.error('Error al copiar al portapapeles: ', err);
+ }
+}
+
 </script>
 
 <template>
@@ -127,9 +142,12 @@ const handleTextInput = (event: Event): void => {
             <CalendarIcon size="20" />
           </template>{{ $t('todayButton') }}
         </SharedIconButton>
-        <SharedIconButton :disabled="isEmptyTask">
+        <SharedIconButton
+          :disabled="isEmptyTask"
+          @click="copyToClipboard"
+        >
           <template #icon>
-            <UnlockIcon size="20" />
+            <ClipboardIcon size="20" />
           </template>{{ $t('publicButton') }}
         </SharedIconButton>
         <SharedIconButton

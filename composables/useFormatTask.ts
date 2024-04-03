@@ -15,25 +15,20 @@ export const useFormatTask = (taskBody: string) => {
     
     
     if (mentionRegex.test(formattedTaskBody)) {
-        console.log('disparada la @');
         formattedTaskBody = formattedTaskBody.replace(mentionRegex, '<span class="no-wrap pill contact-pill">$1</span>')
     }
     
     
     if (hashtagRegex.test(formattedTaskBody)) {
-        console.log('disparada la #');
         formattedTaskBody = formattedTaskBody.replace(hashtagRegex, '<span class="no-wrap pill hashtag-pill">$&</span>');
     }
     
     if (linkRegex.test(formattedTaskBody)) {
-        console.log('disparada la link');
         formattedTaskBody = formattedTaskBody.replace(linkRegex, `<span class="no-wrap pill link-pill inline relative"> <span class="inline-flex absolute top-1">${linkIcon}</span>&nbsp; Link</span>`);
     }
     
     if (emailRegex.test(formattedTaskBody)) {
-        console.log('disparada la email', formattedTaskBody);
         formattedTaskBody = formattedTaskBody.replace(emailRegex, `<span class="no-wrap pill email-pill inline relative"><span class="inline-flex absolute top-1">${emailIcon}</span>&nbsp; Email</span>`);
-        console.log('despues del email', formattedTaskBody);
     }
     
     return `<p class="items-center hover:text-opacity-15">${formattedTaskBody}</p>`
