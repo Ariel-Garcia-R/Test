@@ -97,7 +97,7 @@ const addCharacter = (character: string) => {
       if (textarea.value) {
         textarea.value.setSelectionRange(newPosition, newPosition);
       }
-    }, 10);}
+    }, 1);}
 }
 
 </script>
