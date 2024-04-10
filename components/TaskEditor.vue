@@ -12,64 +12,64 @@ const { isEditingExistingTask, getEditingTask } = storeToRefs(taskStore);
 
 const maxChars = 280
 const defaultTaskItem: TaskInterface = {
-    id: '',
-    body: '',
-    formattedBody: '',
-    isCompleted: false
+  id: '',
+  body: '',
+  formattedBody: '',
+  isCompleted: false
 };
-
+const textarea = ref<HTMLTextAreaElement>()
 const isTaskBoxOpen = ref(false);
 const taskItem = ref<TaskInterface>({ ...defaultTaskItem });
 const creatingNewTask = computed(() => taskItem.value.body != '' && isTaskBoxOpen.value && !taskItem.value.id);
 const isEmptyTask = computed(() => taskItem.value.body === '');
 
 const toggleTaskBox = (): void => {
-    isTaskBoxOpen.value = !isTaskBoxOpen.value;
+  isTaskBoxOpen.value = !isTaskBoxOpen.value;
 };
 
 watch(creatingNewTask, (): void => {
-    setIsCreatingNewTask(creatingNewTask.value);
+  setIsCreatingNewTask(creatingNewTask.value);
 });
 
 watch(isEditingExistingTask, (): void => {
-    if (isEmptyTask.value) {
-        taskItem.value = getEditingTask.value;
-    }
+  if (isEmptyTask.value) {
+    taskItem.value = getEditingTask.value;
+  }
 });
 
 const clearTaskEditor = (): void => {
-    taskItem.value = { ...defaultTaskItem };
+  taskItem.value = { ...defaultTaskItem };
 };
 
 const saveTaskToStore = (): void => {
-    if (isEmptyTask.value) {
-        toggleTaskBox();
-    } else if (taskItem.value.id) {
-        updateTask({ ...taskItem.value });
-        setIsEditingExistingTask(false);
-        clearTaskEditor();
-    } else {
-        addTask(taskItem.value);
-        setIsCreatingNewTask(false);
-        clearTaskEditor();
-    }
+  if (isEmptyTask.value) {
+    toggleTaskBox();
+  } else if (taskItem.value.id) {
+    updateTask({ ...taskItem.value });
+    setIsEditingExistingTask(false);
+    clearTaskEditor();
+  } else {
+    addTask(taskItem.value);
+    setIsCreatingNewTask(false);
+    clearTaskEditor();
+  }
 };
 
 const cancel = (): void => {
-    setIsCreatingNewTask(false);
-    setIsEditingExistingTask(false);
-    isTaskBoxOpen.value = false
-    setEditingTask({ ...defaultTaskItem });
-    taskItem.value = { ...defaultTaskItem }
+  setIsCreatingNewTask(false);
+  setIsEditingExistingTask(false);
+  isTaskBoxOpen.value = false
+  setEditingTask({ ...defaultTaskItem });
+  taskItem.value = { ...defaultTaskItem }
 }
 
 const handleTextInput = (event: Event): void => {
   const textarea = event.target as HTMLTextAreaElement
-    if( textarea.value.length <= maxChars ){
-      taskItem.value.body = textarea.value
-    } else {
-      taskItem.value.body = textarea.value = textarea.value.substring(0, maxChars)
-    }
+  if (textarea.value.length <= maxChars) {
+    taskItem.value.body = textarea.value
+  } else {
+    taskItem.value.body = textarea.value = textarea.value.substring(0, maxChars)
+  }
 }
 
 const copyToClipboard = async () => {
@@ -78,10 +78,26 @@ const copyToClipboard = async () => {
     snackbar.add({
       title: 'Copied ✍️',
       text: t('copiedSuccess')
-   })
- } catch (err) {
+    })
+  } catch (err) {
     console.error('Error al copiar al portapapeles: ', err);
- }
+  }
+}
+
+const addCharacter = (character: string) => {
+  if (textarea.value) {
+    const start = textarea.value.selectionStart;
+    const end = textarea.value.selectionEnd;
+    const textBefore = textarea.value.value.substring(0, start);
+    const textAfter = textarea.value.value.substring(end, textarea.value.value.length);
+    taskItem.value.body = textBefore + character + textAfter;
+    const newPosition = start + 1;
+    textarea.value.focus();
+    setTimeout(() => {
+      if (textarea.value) {
+        textarea.value.setSelectionRange(newPosition, newPosition);
+      }
+    }, 10);}
 }
 
 </script>
@@ -101,22 +117,23 @@ const copyToClipboard = async () => {
   >
     <div class="h-24 xl:h-16 w-full max-w-[1360px] flex">
       <div class="mx-3 my-2">
-        <PlusSquareIcon 
-          size="20" 
+        <PlusSquareIcon
+          size="20"
           class="text-[#007FFF]"
         />
       </div>
-      <textarea 
+      <textarea
         id="task-editor"
+        ref="textarea"
         :value="taskItem.body"
-        name="task-editor" 
+        name="task-editor"
         class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none caret-blue-500"
         :placeholder="$t('taskPlaceholder')"
         @keyup="handleTextInput"
       />
-      <div 
-        class="w-24 relative" 
-        :class="{'opacity-50': isEmptyTask}"
+      <div
+        class="w-24 relative"
+        :class="{ 'opacity-50': isEmptyTask }"
       >
         <img
           class="h-6 w-6 rounded-full bg-cover absolute top-2 right-2"
@@ -128,7 +145,7 @@ const copyToClipboard = async () => {
     </div>
     <div class="flex justify-between bg-[#FAFBFB] dark:bg-slate-800 h-14 items-center px-2">
       <div class="flex gap-[5px] xl:gap-1">
-        <SharedIconButton 
+        <SharedIconButton
           :disabled="isEmptyTask"
           class="bg-[#EAF0F5] disabled:text-opacity-55 text-black border-none dark:bg-slate-700 dark:text-slate-400 dark:disabled:text-slate-500"
           icon-class="disabled:text-[#4E5D78] text-[#04142F] dark:disabled:text-slate-600 dark:text-slate-500"
@@ -150,16 +167,12 @@ const copyToClipboard = async () => {
             <ClipboardIcon size="20" />
           </template>{{ $t('publicButton') }}
         </SharedIconButton>
-        <SharedIconButton
-          @click="taskItem.body += '#'"
-        >
+        <SharedIconButton @click="addCharacter('#')">
           <template #icon>
             <HashIcon size="20" />
           </template>{{ $t('highlightButton') }}
         </SharedIconButton>
-        <SharedIconButton 
-          @click="taskItem.body += '@'"
-        >
+        <SharedIconButton @click="addCharacter('@')">
           <template #icon>
             <AtSignIcon size="20" />
           </template>{{ $t('estimationButton') }}
