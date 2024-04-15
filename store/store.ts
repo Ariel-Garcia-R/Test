@@ -4,7 +4,8 @@ import type { TaskInterface } from "~/types/taskInterface";
 // Define the store
 export const useTaskStore = defineStore('tasks', () => {
   // Initialize reactive references with specific types
-  const taskArray = ref<TaskInterface[]>([]);
+
+  const taskArray = ref<TaskInterface[]>(JSON.parse(localStorage.getItem('tasks')));
   const creatingNewTask = ref(false);
   const editingExistingTask = ref(false);
   const editingTask = ref<TaskInterface>({
@@ -46,6 +47,7 @@ export const useTaskStore = defineStore('tasks', () => {
   // Add a task to the store
   function addTask(newTaskToAdd: TaskInterface) {
     taskArray.value.push({ ...newTaskToAdd, formattedBody: useFormatTask(newTaskToAdd.body), id: String(Math.floor(Math.random() * 100000000 + 1)) });
+    localStorage.setItem('tasks', JSON.stringify(taskArray.value))
   }
 
   // Update an existing task
@@ -55,6 +57,7 @@ export const useTaskStore = defineStore('tasks', () => {
       taskArray.value[taskToUpdateIndex] = {
         ...taskToUpdate, formattedBody: useFormatTask(taskToUpdate.body)
       };
+      localStorage.setItem('tasks', JSON.stringify(taskArray.value))
       setClearEditingTask();
     } else {
       throw new Error("Update Task index not found");

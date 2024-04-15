@@ -34,6 +34,7 @@ watch(creatingNewTask, (): void => {
 watch(isEditingExistingTask, (): void => {
   if (isEmptyTask.value) {
     taskItem.value = getEditingTask.value;
+    isTaskBoxOpen.value = true
   }
 });
 
