@@ -26,7 +26,6 @@ input[type="checkbox"] {
 }   
 
 input[type="checkbox"]:checked {
-    background-color: red;
     background: url(/assets/checkbox.png) center;
     background-size: 34px 34px;
     border: none

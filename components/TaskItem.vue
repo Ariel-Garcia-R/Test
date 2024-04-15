@@ -29,7 +29,7 @@ const setTaskToEdit = () => {
   >
     <input
       :id="task.id"
-      :value="props.task.isCompleted"
+      :checked="props.task.isCompleted"
       type="checkbox"
       name="list-item"
       class="ml-0 mr-4 border border-[#8A94A6] dark:border-slate-500 shrink-0"

@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
+import { getLocalStorageTasks } from '~/helpers/getLocalStorageTasks';
 import type { TaskInterface } from "~/types/taskInterface";
 
 // Define the store
 export const useTaskStore = defineStore('tasks', () => {
   // Initialize reactive references with specific types
 
-  const taskArray = ref<TaskInterface[]>(JSON.parse(localStorage.getItem('tasks')));
+  const taskArray = ref<TaskInterface[]>(getLocalStorageTasks());
   const creatingNewTask = ref(false);
   const editingExistingTask = ref(false);
   const editingTask = ref<TaskInterface>({
@@ -69,6 +70,7 @@ export const useTaskStore = defineStore('tasks', () => {
     const deletedTaskIndex = taskArray.value.findIndex(task => task.id === taskID);
     if (deletedTaskIndex !== -1) {
       taskArray.value.splice(deletedTaskIndex, 1);
+      localStorage.setItem('tasks', JSON.stringify(taskArray.value))
     } else {
       throw new Error("Task index not found");
     }
@@ -79,6 +81,7 @@ export const useTaskStore = defineStore('tasks', () => {
     const completeTaskIndex = taskArray.value.findIndex(task => task.id === taskID);
     if (completeTaskIndex !== -1) {
       taskArray.value[completeTaskIndex].isCompleted = status;
+      localStorage.setItem('tasks', JSON.stringify(taskArray.value))
     } else {
       throw new Error("Task not found");
     }
