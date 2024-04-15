@@ -104,6 +104,7 @@ const addCharacter = (character: string) => {
 </script>
 
 <template>
+  <h1>Usando localStorage</h1>
   <button
     v-if="!isTaskBoxOpen"
     class="text-[#8A94A6] flex gap-4 items-center my-5"
