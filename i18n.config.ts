@@ -15,7 +15,8 @@ export default defineI18nConfig(() => ({
       confirmSaveButton: 'Save',
       confirmButton: 'Add',
       cancelButton: 'Cancel',
-      copiedSuccess: 'Copied to clipboard'
+      copiedSuccess: 'Copied to clipboard',
+      clearAllTasks: 'Clear all'
     },
     sp: {
       appTittle: 'App de Tareas',
@@ -30,9 +31,8 @@ export default defineI18nConfig(() => ({
       confirmButton: 'Agregar',
       confirmSaveButton: 'Guardar',
       cancelButton: 'Cancelar',
-      copiedSuccess: 'Copiado al cortapapeles'
-
-
+      copiedSuccess: 'Copiado al cortapapeles',
+      clearAllTasks: 'Borrar todas'
     }
   }
 }))

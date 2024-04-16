@@ -5,7 +5,7 @@ import type { TaskInterface } from "~/types/taskInterface";
 
 const taskStore = useTaskStore();
 const { setEditingTask, setIsEditingExistingTask, deleteTask, completeTask } = taskStore;
-const { getEditingTask, isCreatingNewTask } = storeToRefs(taskStore);
+const { getEditingTask, isCreatingNewTask, isEditingExistingTask } = storeToRefs(taskStore);
 
 const props = defineProps<{
     task: TaskInterface;
@@ -42,7 +42,7 @@ const setTaskToEdit = () => {
       v-html="props.task.formattedBody"
     />
     <div
-      v-if="!isCreatingNewTask"
+      v-if="!isCreatingNewTask && !isEditingExistingTask"
       class="min-w-44 flex items-center justify-end transition-all duration-300 ease-out h-full absolute right-0 bg-gradient-to-r to-60% from-transparent to-white dark:to-gray-900"
       :class="isShowingEditButton ? 'opacity-1' : 'opacity-0'"
     >

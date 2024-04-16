@@ -7,7 +7,7 @@ import { useI18n } from '#imports'
 const { t } = useI18n()
 const snackbar = useSnackbar();
 const taskStore = useTaskStore();
-const { addTask, setIsCreatingNewTask, setIsEditingExistingTask, updateTask, setEditingTask } = taskStore;
+const { addTask, setIsCreatingNewTask, setIsEditingExistingTask, updateTask, setEditingTask, clearAllTasks } = taskStore;
 const { isEditingExistingTask, getEditingTask } = storeToRefs(taskStore);
 
 const maxChars = 280
@@ -25,6 +25,10 @@ const isEmptyTask = computed(() => taskItem.value.body === '');
 
 const toggleTaskBox = (): void => {
   isTaskBoxOpen.value = !isTaskBoxOpen.value;
+ 
+  setTimeout(() => {
+    textarea.value?.focus();
+ }, 0);
 };
 
 watch(creatingNewTask, (): void => {
@@ -104,14 +108,26 @@ const addCharacter = (character: string) => {
 </script>
 
 <template>
-  <button
+  <div 
     v-if="!isTaskBoxOpen"
-    class="text-[#8A94A6] flex gap-4 items-center my-5"
-    @click="toggleTaskBox"
+    class="flex"
   >
-    <PlusSquareIcon class="text-[#007FFF]" />
-    <span>{{ $t('taskPlaceholder') }}</span>
-  </button>
+    <button
+      class="text-[#8A94A6] flex gap-4 items-center my-5"
+      @click="toggleTaskBox"
+    >
+      <PlusSquareIcon class="text-[#007FFF]" />
+      <span>{{ $t('taskPlaceholder') }}</span>
+    </button>
+    <buton 
+      class="ml-auto my-5 text-red-500 p-1 px-3 rounded border border-transparent hover:border-red-500 active:bg-red-500 active:text-white transition-colors duration-150"
+      @click="clearAllTasks"
+    >
+      <span class="hidden xl:inline">{{ $t('clearAllTasks') }}</span>
+      <span class="xl:hidden"><Trash2Icon size="20" /></span>
+    </buton>
+  </div>
+
   <div
     v-else
     class="flex-col w-full rounded-t border border-[#F1F3F4] dark:border-gray-800 my-5"
@@ -131,6 +147,7 @@ const addCharacter = (character: string) => {
         class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none caret-blue-500"
         :placeholder="$t('taskPlaceholder')"
         @keyup="handleTextInput"
+        @keydown.ctrl.enter="saveTaskToStore"
       />
       <div
         class="w-24 relative"

@@ -77,14 +77,34 @@ export const useTaskStore = defineStore('tasks', () => {
   }
 
   // Mark a task as completed
-  function completeTask(taskID: string, status: boolean) {
-    const completeTaskIndex = taskArray.value.findIndex(task => task.id === taskID);
-    if (completeTaskIndex !== -1) {
-      taskArray.value[completeTaskIndex].isCompleted = status;
-      localStorage.setItem('tasks', JSON.stringify(taskArray.value))
+  function completeTask(taskID: string, isCompleted: boolean) {
+    const taskIndex = taskArray.value.findIndex(task => task.id === taskID);
+    if (taskIndex !== -1) {
+      taskArray.value[taskIndex].isCompleted = isCompleted;
+
+      if(isCompleted){
+        const completedTask = taskArray.value[taskIndex]
+        taskArray.value.splice(taskIndex, 1)
+        taskArray.value.push(completedTask)
+      }
+      else{
+        const uncompletedTask = taskArray.value[taskIndex]
+        taskArray.value.splice(taskIndex, 1)
+        taskArray.value.unshift(uncompletedTask)
+      }
+      
+      
+
+      localStorage.setItem('tasks', JSON.stringify(taskArray.value));
     } else {
       throw new Error("Task not found");
     }
+  }
+
+  function clearAllTasks():void {
+    taskArray.value = [];
+    localStorage.setItem('tasks', JSON.stringify(taskArray.value));
+    
   }
 
 
@@ -101,6 +121,7 @@ export const useTaskStore = defineStore('tasks', () => {
     isEditingExistingTask,
     getEditingTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    clearAllTasks
   };
 });

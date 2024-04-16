@@ -1,7 +1,7 @@
 export const useFormatTask = (taskBody: string) => {
     let formattedTaskBody = taskBody
-    const mentionRegex = /\B(@\w+)\b/g;
-    const hashtagRegex = /#[a-zA-Z0-9_-]+/g;
+    const mentionRegex = /\B(@[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9¡!¿?@]+)\b/g;
+    const hashtagRegex = /#[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9¡!¿?#_-]+/g;
     const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
     const linkRegex = /https:\/\/\S+/g;
     const emailIcon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
