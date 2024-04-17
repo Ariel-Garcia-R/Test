@@ -119,13 +119,13 @@ const addCharacter = (character: string) => {
       <PlusSquareIcon class="text-[#007FFF]" />
       <span>{{ $t('taskPlaceholder') }}</span>
     </button>
-    <buton 
+    <button 
       class="ml-auto my-5 text-red-500 p-1 px-3 rounded border border-transparent hover:border-red-500 active:bg-red-500 active:text-white transition-colors duration-150"
       @click="clearAllTasks"
     >
       <span class="hidden xl:inline">{{ $t('clearAllTasks') }}</span>
       <span class="xl:hidden"><Trash2Icon size="20" /></span>
-    </buton>
+    </button>
   </div>
 
   <div

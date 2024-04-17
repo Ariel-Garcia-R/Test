@@ -3,13 +3,22 @@ const { locale } = useI18n()
 const colorMode = useColorMode()
 const isLenguageMenuOpen = ref(false)
 
+onBeforeMount( () => {
+  const theme = localStorage.getItem("theme") || "light"
+  colorMode.preference = theme;
+})
+
 const switchColorMode = () => {
-    if (colorMode.preference != "dark") {
-        colorMode.preference = "dark"
+    if (colorMode.preference === "light") {
+      colorMode.preference = "dark"
     }
-    else {
+    else if(colorMode.preference === "dark"){
+      colorMode.preference = "system"
+    }
+    else{
         colorMode.preference = "light"
     }
+    localStorage.setItem("theme", colorMode.preference)
 }
 </script>
 
@@ -22,11 +31,27 @@ const switchColorMode = () => {
     </h1>
     <div class="flex">
       <SharedButton
-        class="mx-[2px] lg:px-3 xl:mx-3"
+        class="mx-[2px] lg:px-3 xl:mx-3 flex-col active:bg-blue-900"
         @click="switchColorMode"
       >
-        <SunIcon v-if="colorMode.preference === 'dark'" />
-        <MoonIcon v-else />
+        <Transition name="slide-up">
+          <button 
+            v-if="colorMode.preference === 'system'"
+          >
+            <SunIcon />
+          </button>
+          <button 
+            v-else-if="colorMode.preference === 'light'"
+          >
+            <MoonIcon />
+          </button>
+          <button 
+            v-else-if="colorMode.preference === 'dark'"
+          >
+            <MonitorIcon class="hidden xl:inline-block" />
+            <SmartphoneIcon class="xl:hidden" />
+          </button>
+        </Transition>
       </SharedButton>
       <div class="flex mx-[2px] justify-center items-center">
         <div class="relative inline-block text-left">
@@ -76,5 +101,21 @@ const switchColorMode = () => {
 <style lang="postcss">
 body {
     @apply min-h-screen bg-white dark:bg-gray-900 dark:text-gray-200;
+}
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: margin 0.25s ease-out, opacity .25s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  margin: 30px 0 0 0;
+
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  margin: -30px 0 0 0;
+  /* transform: translateX(30px); */
 }
 </style>
