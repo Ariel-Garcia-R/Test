@@ -31,7 +31,7 @@ const switchColorMode = () => {
     </h1>
     <div class="flex">
       <SharedButton
-        class="mx-[2px] lg:px-3 xl:mx-3 flex-col active:bg-blue-900"
+        class="mx-[2px] lg:px-3 xl:mx-3 flex-col active:bg-blue-900 overflow-hidden"
         @click="switchColorMode"
       >
         <Transition name="slide-up">
@@ -104,7 +104,7 @@ body {
 }
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: margin 0.25s ease-out, opacity .25s ease-out;
+  transition: margin 0.15s ease-out, opacity .15s ease-out;
 }
 
 .slide-up-enter-from {

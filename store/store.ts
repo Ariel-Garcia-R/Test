@@ -102,9 +102,16 @@ export const useTaskStore = defineStore('tasks', () => {
   }
 
   function clearAllTasks():void {
-    taskArray.value = [];
-    localStorage.setItem('tasks', JSON.stringify(taskArray.value));
-    
+    function removeTask() {
+      if (taskArray.value.length > 0) {
+        setTimeout(() => {
+          taskArray.value.pop();
+          removeTask();
+        }, 30);
+      } else {
+        localStorage.setItem('tasks', JSON.stringify(taskArray.value));
+      }}
+    removeTask();
   }
 
 

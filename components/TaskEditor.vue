@@ -144,7 +144,7 @@ const addCharacter = (character: string) => {
         ref="textarea"
         :value="taskItem.body"
         name="task-editor"
-        class="resize-none w-full dark:bg-gray-900 dark:text-gray-500 pt-[5px] overflow-y-auto outline-none caret-blue-500"
+        class="resize-none w-full dark:bg-gray-900 text-gray-500 pt-[5px] overflow-y-auto outline-none caret-blue-500 placeholder:text-slate-500"
         :placeholder="$t('taskPlaceholder')"
         @keyup="handleTextInput"
         @keydown.ctrl.enter="saveTaskToStore"
@@ -198,7 +198,7 @@ const addCharacter = (character: string) => {
       </div>
       <div class="flex gap-1">
         <SharedButton
-          class="hidden xl:block bg-[#EAF0F5] text-slate-800 dark:bg-slate-700 dark:text-slate-300"
+          class="bg-[#EAF0F5] hover:bg-slate-200 active:bg-slate-300 text-gray-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:active:bg-slate-500 dark:text-white"
           @click="cancel()"
         >
           {{ $t('cancelButton') }}

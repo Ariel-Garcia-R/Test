@@ -37,7 +37,7 @@ const setTaskToEdit = () => {
       @change="completeTask(props.task.id, !props.task.isCompleted)"
     >
     <li
-      class="flex items-center my-2 dark:text-slate-500"
+      class="flex items-center my-2 text-slate-500"
       :class="{ 'text-slate-300 dark:text-slate-700': itsBeenEdited }"
       v-html="props.task.formattedBody"
     />
